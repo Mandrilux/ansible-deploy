@@ -1,0 +1,52 @@
+---
+# tasks file for php7.3
+
+- name: Update repositories cache and install "php" package
+  apt:
+    name: php
+    update_cache: yes
+
+- name: "Installation of php7 modules"
+  apt:
+    name={{ item }}
+    state=latest
+  loop :
+    -  php-cli
+    -  php-fpm
+    -  php-json
+    -  php-pdo
+    -  php-mysql
+    -  php-zip
+    -  php-gd
+    -  php-mbstring
+    -  php-curl
+    -  php-xml
+    -  php-pear
+    -  php-bcmath
+    -  php-intl
+
+
+#- name : Check version php
+#  package_facts:
+#    manager: auto
+
+- name: check php version
+  shell: "php --version | head -n 1 | cut -d ' ' -f 2 | cut -c 1-3"
+  register: php_version
+
+#- debug:
+#    msg: Version {{ php_version['stdout'] }}
+
+- name: Ensure timezone is set in cli php.ini
+  become: true
+  lineinfile:
+    dest: "/etc/php/{{ php_version['stdout'] }}/cli/php.ini"
+    regexp: "date.timezone ="
+    line: "date.timezone = \"Europe/Paris\""
+
+- name: Ensure timezone is set in apache php.ini
+  become: true
+  lineinfile:
+    dest: "/etc/php/{{ php_version['stdout'] }}/apache2/php.ini"
+    regexp: "date.timezone ="
+    line: "date.timezone = \"Europe/Paris\""

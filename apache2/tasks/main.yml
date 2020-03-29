@@ -8,6 +8,14 @@
        update_cache : yes
        state: latest
 
+- name: "Installation of certbot"
+  apt:
+    name={{ item }}
+    state=latest
+  loop :
+    -  certbot
+    -  python-certbot-apache
+
 - name: enabled mod_rewrite
   apache2_module :
     name : rewrite

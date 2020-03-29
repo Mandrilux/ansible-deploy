@@ -8,6 +8,13 @@
     update_cache: yes
     force_apt_get: yes
 
+- name: Set authorized key taken from file
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+
 - name: "Installation des logiciels communs"
   apt:
     name={{ item }}
@@ -20,10 +27,10 @@
     -  curl
     -  emacs
     -  net-tools
-
-
-
-
-
-
-
+    -  lsb-release
+    -  apt-transport-https
+    -  ca-certificates
+    -  python3
+    -  sudo
+    -  make
+    -  unzip
