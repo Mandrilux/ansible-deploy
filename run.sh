@@ -1,1 +1,1 @@
-ansible-playbook apache2.yml -i hosts -k
+ansible-playbook playbook.yml -i hosts -k

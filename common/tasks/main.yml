@@ -1,0 +1,29 @@
+# tasks file for common
+
+- name: Update the apt package index
+  become: yes
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
+
+- name: "Installation des logiciels communs"
+  apt:
+    name={{ item }}
+    state=latest
+  loop :
+    -  vim
+    -  git
+    -  tree
+    -  htop
+    -  curl
+    -  emacs
+    -  net-tools
+
+
+
+
+
+
+
