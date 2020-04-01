@@ -1,0 +1,6 @@
+---
+# tasks file for symfony
+
+- name: symfony install
+  shell: "cd /root && wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/bin/symfony /bin/symfony && chmod +x /bin/symfony"
+  register: installOfSymfony
