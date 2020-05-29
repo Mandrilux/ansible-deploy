@@ -22,3 +22,38 @@
     state: present
   notify:
     - restart apache2
+
+- name : create a directory if it does not exist for app wwww
+  file:
+    path: /var/www/{{domain.split(".")[0]}}
+    state : directory
+    mode: '0777'
+
+
+- name : create a directory if it does not exist for log apache2
+  file:
+    path: /var/log/apache2/{{domain.split(".")[0]}}
+    state : directory
+    mode: '0777'
+
+- name: upload vhost for {{domain}}
+  template:
+    src : files/vhost.conf
+    dest: /etc/apache2/sites-available/{{domain.split(".")[0]}}.conf
+
+- name: Configure Vhost  dir domain
+  replace:
+    path: /etc/apache2/sites-available/{{domain.split(".")[0]}}.conf
+    regexp : 'domaine-dir.ltd'
+    replace : '{{domain.split(".")[0]}}'
+
+- name: Configure Vhost domain rule
+  replace:
+    path: /etc/apache2/sites-available/{{domain.split(".")[0]}}.conf
+    regexp : 'domaine.ltd'
+    replace : '{{domain}}'
+
+- name : a2ensite {{domain.split(".")[0]}}
+  command : a2ensite {{domain.split(".")[0]}}
+  notify:
+    - restart apache2

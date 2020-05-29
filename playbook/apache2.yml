@@ -1,0 +1,10 @@
+#provisioning des serveurs
+
+- hosts : www-apache2-only
+  remote_user: root
+  vars:
+    domain: blackdiamondinvests.com
+  roles :
+    - common
+    - apache2
+    - php7.3

@@ -30,7 +30,8 @@
     -  lsb-release
     -  apt-transport-https
     -  ca-certificates
-    -  python3
     -  sudo
     -  make
     -  unzip
+    -  python3
+    -  python3-pip
