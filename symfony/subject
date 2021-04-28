@@ -1,0 +1,6 @@
+- installer php et les dep php.
+- installer serveur web (apache2) ou nginx ? 
+- installer mysql.
+- installer et configurer le compte utilisateur de la base de données.
+
+- creer un vhost pour le site web.
